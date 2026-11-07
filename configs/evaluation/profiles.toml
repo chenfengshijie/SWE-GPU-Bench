@@ -1,0 +1,18 @@
+# Replace model/base_url with the deployment configured by your provider.
+# Secret values are read at execution time from the environment, never frozen.
+[profiles.text.model]
+provider = "openai_responses"
+model = "your-model"
+base_url = "https://api.openai.com/v1"
+api_key_env = "OPENAI_API_KEY"
+reasoning_effort = "high"
+
+[profiles.agent.model]
+framework = "codex"
+provider = "openai_responses"
+model = "your-model"
+base_url = "https://api.openai.com/v1"
+api_key_env = "OPENAI_API_KEY"
+reasoning_effort = "high"
+
+# For OpenCode use framework="opencode" and a compatible provider endpoint.

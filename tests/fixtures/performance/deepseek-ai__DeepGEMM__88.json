@@ -1,0 +1,12 @@
+{
+  "instance_id": "deepseek-ai__DeepGEMM__88",
+  "source": {
+    "kind": "synthetic",
+    "description": "Synthetic numeric values; output syntax and selected keys/workloads follow the frozen 2026-11-03 recipe. These are not GPU measurements.",
+    "dataset_sha256": "b2e659879519dfb70080adf2b53cc1718f2ef0586b89797c460299d59a0c05d0"
+  },
+  "command_sha256": "9950b5166a9363f63efe7c66bd7b6549edb41eff2b4d88bc9e26b6b1aefd4aa1",
+  "base": "10\n",
+  "candidate": "8\n",
+  "expected_improvement_percent": 20
+}

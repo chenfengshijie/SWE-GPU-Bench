@@ -1,0 +1,469 @@
+{
+  "schema_version": 1,
+  "guide_sha256": "f02f57d7c28cbdbf7387b8f6d6f31d42ec61b1773135e788ca810870e188f594",
+  "dataset_sha256": "b2e659879519dfb70080adf2b53cc1718f2ef0586b89797c460299d59a0c05d0",
+  "recipes": {
+    "Dao-AILab__flash-attention__2692": {
+      "command_sha256": "4e34fe2879d05f79dc0445c15ec042e1c5b6f1a33a585df54e05acde4b849e75",
+      "better": "lower",
+      "selection": "latency [ms] / flash_attn_varlen-sparse-mixed-b64-q1x63+q512-k512-h6-hkv2-d128-bf16-splits4",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "tagged",
+      "workloads": [
+        "flash_attn_varlen-sparse-mixed-b64-q1x63+q512-k512-h6-hkv2-d128-bf16-splits4"
+      ],
+      "unit": "ms",
+      "metric": "latency"
+    },
+    "NVIDIA__Megatron-LM__5092": {
+      "command_sha256": "67454d4c4352e36259ecaa09f4e7a098a3cbc912e0d65a21d56ac9dd5bb03ff4",
+      "better": "lower",
+      "selection": "latency [ms] / median per-backward CUDA-event latency over 31 samples of 3 repetitions for BF16 LinearWithFrozenWeight dgrad with grad_output=[384,8,4096], stride=[4096,1572864,1], weight=[4096,4096], no bias or all-reduce",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "named",
+      "keys": [
+        "latency_ms"
+      ],
+      "unit": "ms"
+    },
+    "NVIDIA__cccl__11641": {
+      "command_sha256": "b37cefced0d42f8816727e4251cf8fe59c575eea1ca5a64c937e3cea62f4d376",
+      "better": "lower",
+      "selection": "latency [ms] / warp_match_any-bool-1024x256-512iters-sm90",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "tagged",
+      "workloads": [
+        "warp_match_any-bool-1024x256-512iters-sm90"
+      ],
+      "unit": "ms",
+      "metric": "latency"
+    },
+    "NVIDIA__cccl__11644": {
+      "command_sha256": "dca792df33de6d30883a97ae532ed646015b8c29ed892108c215fe6f444ea12b",
+      "better": "lower",
+      "selection": "latency [ms] / cuda-bit_fns-u128-1048576-runtime-ranks-sm90",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "tagged",
+      "workloads": [
+        "cuda-bit_fns-u128-1048576-runtime-ranks-sm90"
+      ],
+      "unit": "ms",
+      "metric": "latency"
+    },
+    "NVIDIA__cccl__11645": {
+      "command_sha256": "8865878a818f659356a1dd94e263731cc0b868940206a0fb939d96c4c0a9cb74",
+      "better": "lower",
+      "selection": "latency [ms] / cub-warp-reduce-int64-xor-16384-warps",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "tagged",
+      "workloads": [
+        "cub-warp-reduce-int64-xor-16384-warps"
+      ],
+      "unit": "ms",
+      "metric": "latency"
+    },
+    "NVIDIA__cccl__11661": {
+      "command_sha256": "a2c9189b696191ba94b413c80c0a6858a68d0e5c4d9e43d2fef711956161fac7",
+      "better": "lower",
+      "selection": "latency [ms] / thrust-set-difference-i32-10m-6m-overlap; latency [ms] / thrust-set-intersection-i32-10m-6m-overlap; latency [ms] / thrust-set-union-i32-10m-6m-overlap; latency [ms] / thrust-set-symmetric-difference-i32-10m-6m-overlap",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "tagged",
+      "workloads": [
+        "thrust-set-difference-i32-10m-6m-overlap",
+        "thrust-set-intersection-i32-10m-6m-overlap",
+        "thrust-set-union-i32-10m-6m-overlap",
+        "thrust-set-symmetric-difference-i32-10m-6m-overlap"
+      ],
+      "unit": "ms",
+      "metric": "latency"
+    },
+    "NVIDIA__cccl__11737": {
+      "command_sha256": "75a3033215e9a0a47a1691cb01bd2a9e881ad812a8235252c6f7ee772b9870e1",
+      "better": "lower",
+      "selection": "latency [ms] / cuda-simd-add-min-max-int32-fixed32-16384threads-32iterations",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "tagged",
+      "workloads": [
+        "cuda-simd-add-min-max-int32-fixed32-16384threads-32iterations"
+      ],
+      "unit": "ms",
+      "metric": "latency"
+    },
+    "NVIDIA__cccl__11975": {
+      "command_sha256": "3ae3c79eef748b8e672cab8a14cc142ecf8aedd0136510595843df3ba404589f",
+      "better": "lower",
+      "selection": "latency [ms] / fixed_capacity_map-for_each-4096-colliding-int32-cg1-bucket1",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "tagged",
+      "workloads": [
+        "fixed_capacity_map-for_each-4096-colliding-int32-cg1-bucket1"
+      ],
+      "unit": "ms",
+      "metric": "latency"
+    },
+    "NVIDIA__cccl__11978": {
+      "command_sha256": "3147fbaee829077c6425aa80feb034500d61983017250ba2a86cdbc31a45dd95",
+      "better": "lower",
+      "selection": "latency [ms] / cuda-launch-dynamic-smem-1x32-f52KiB-nonportable",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "tagged",
+      "workloads": [
+        "cuda-launch-dynamic-smem-1x32-f52KiB-nonportable"
+      ],
+      "unit": "ms",
+      "metric": "latency"
+    },
+    "NVIDIA__cccl__12013": {
+      "command_sha256": "853817f0e75ec331c41722122fc134e3416de2ff67644db9eb63c6da7d0b8292",
+      "better": "lower",
+      "selection": "latency [ms] / cub-multihistogram-range-raw-array-8M-rgba-u8-8bins-stream",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "tagged",
+      "workloads": [
+        "cub-multihistogram-range-raw-array-8M-rgba-u8-8bins-stream"
+      ],
+      "unit": "ms",
+      "metric": "latency"
+    },
+    "NVIDIA__cccl__12078": {
+      "command_sha256": "2bf185f635a5482e4bb0c0b6b10897b29d44ce54584941923b0ca1a531fa1908",
+      "better": "lower",
+      "selection": "latency [ms] / device-find-lower-u32-total-uint32max-minus-2046-values-2000; latency [ms] / device-find-upper-u32-total-uint32max-minus-2046-values-2000",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "tagged",
+      "workloads": [
+        "device-find-lower-u32-total-uint32max-minus-2046-values-2000",
+        "device-find-upper-u32-total-uint32max-minus-2046-values-2000"
+      ],
+      "unit": "ms",
+      "metric": "latency"
+    },
+    "NVIDIA__cccl__12109": {
+      "command_sha256": "ea3485a694b8fe353bb1cf220366d4cc3bf651d141b2dfe27c0674dc4f8989b3",
+      "better": "lower",
+      "selection": "latency [ms] / cub-device-reduce-by-key-int-to-u8-n16777216-seg8",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "tagged",
+      "workloads": [
+        "cub-device-reduce-by-key-int-to-u8-n16777216-seg8"
+      ],
+      "unit": "ms",
+      "metric": "latency"
+    },
+    "NVIDIA__cccl__12152": {
+      "command_sha256": "fbf7bf45011741d31d10f48b2537f738ebfec31260a33f2576d3e3e2feeb8ce4",
+      "better": "lower",
+      "selection": "latency [ms] / masked-reduce-min-max-f32x32-n1048576",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "tagged",
+      "workloads": [
+        "masked-reduce-min-max-f32x32-n1048576"
+      ],
+      "unit": "ms",
+      "metric": "latency"
+    },
+    "NVIDIA__cccl__12157": {
+      "command_sha256": "a4738f5a2671fcf82f51ff9b41b51433c9d226dbbae8ab756775c80cb97554c1",
+      "better": "lower",
+      "selection": "latency [ms] / cuda-bit_fns-u8-131072x256-runtime-rank; latency [ms] / cuda-bit_fns-u16-131072x256-runtime-rank; latency [ms] / cuda-bit_fns-u32-131072x256-runtime-rank; latency [ms] / cuda-bit_fns-u64-131072x256-runtime-rank",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "tagged",
+      "workloads": [
+        "cuda-bit_fns-u8-131072x256-runtime-rank",
+        "cuda-bit_fns-u16-131072x256-runtime-rank",
+        "cuda-bit_fns-u32-131072x256-runtime-rank",
+        "cuda-bit_fns-u64-131072x256-runtime-rank"
+      ],
+      "unit": "ms",
+      "metric": "latency"
+    },
+    "NVIDIA__cccl__6932": {
+      "command_sha256": "2dcb3221d12794e5be439c96bdc898b98439dcafe2325fc1a1fc814ae7d8d86d",
+      "better": "lower",
+      "selection": "GPU execution time from NVBench JSON; match the requested benchmark and axes",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "nvbench",
+      "benchmark": "base",
+      "unit": "s",
+      "axes": {
+        "T": "F32",
+        "OffsetT": "I32",
+        "Elements": "1048576"
+      }
+    },
+    "NVIDIA__cccl__7114": {
+      "command_sha256": "ced3d8e906e926dead40df1228fb6a4af6b2513607c97476dd0d5ede9babf1d7",
+      "better": "lower",
+      "selection": "GPU execution time in artifacts/segmented_reduce_large.json; match the requested benchmark and axes",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "nvbench",
+      "benchmark": "large",
+      "unit": "s",
+      "artifact": "artifacts/segmented_reduce_large.json",
+      "axes": {
+        "T": "I32",
+        "Elements": "268435456",
+        "SegmentSize": "65536"
+      }
+    },
+    "NVIDIA__cccl__7928": {
+      "command_sha256": "607b17a790e1101ca8e2b2378c98b2679a9508be648b3cc1d44eb8297e571248",
+      "better": "lower",
+      "selection": "GPU execution time from NVBench JSON; match the requested benchmark and axes",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "nvbench",
+      "benchmark": "base",
+      "unit": "s",
+      "axes": {
+        "KeyT": "I32",
+        "OffsetT": "I32",
+        "OutOffsetT": "I32",
+        "Elements": "1048576",
+        "SelectedElements": "2048",
+        "Entropy": "0.544"
+      }
+    },
+    "NVIDIA__cuda-python__1221": {
+      "command_sha256": "c70a5011d54f61d78782157c29a645fc84000b784e88b168485a01a192ef57db",
+      "better": "lower",
+      "selection": "launch_config_to_native_ms",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "named",
+      "keys": [
+        "launch_config_to_native_ms"
+      ],
+      "unit": "ms"
+    },
+    "NVIDIA__cuda-python__459": {
+      "command_sha256": "c8dafc14628ea791946d3b4a0f4aac7eb0692b3d03061e8ad7f1f6da450d3d33",
+      "better": "lower",
+      "selection": "ns_per_call; do not also score total_seconds",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "named",
+      "keys": [
+        "ns_per_call"
+      ],
+      "unit": "ns"
+    },
+    "NVIDIA__cuda-python__709": {
+      "command_sha256": "95b9d9242b63cffc157fde9da449084150ce6d9f42bf8d108b3cbc6e0e5a6b61",
+      "better": "lower",
+      "selection": "event_create_close_us_median and stream_create_close_us_median; exclude min and per-run diagnostics",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "named",
+      "keys": [
+        "event_create_close_us_median",
+        "stream_create_close_us_median"
+      ],
+      "unit": "us"
+    },
+    "NVIDIA__cutlass__53": {
+      "command_sha256": "6e2e557da3dbcae9e0b43091f62400c022a916c2640f1bfab1aeda52e63cc4ee",
+      "better": "lower",
+      "selection": "Kernel execution time for matching s884gemm_tn results; exclude GFLOP/s and non-timing columns",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "cutlass",
+      "unit": "ms"
+    },
+    "bitsandbytes-foundation__bitsandbytes__1365": {
+      "command_sha256": "e168f757f2ebba00c8f492c2c0f9730df926bb11ecde0a96f4bb34fd0753ac43",
+      "better": "lower",
+      "selection": "seconds_per_parameter_step; exclude elapsed_seconds and parameter_steps",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "named",
+      "keys": [
+        "seconds_per_parameter_step"
+      ],
+      "unit": "s"
+    },
+    "deepseek-ai__DeepGEMM__103": {
+      "command_sha256": "e32fd651ac4cc34a5131d17258df5375e9d4b49e6ad8ee7f2c8bc301f7e2dc62",
+      "better": "lower",
+      "selection": "latency [ms] / geometric mean of three fixed median per-call CUDA-event latencies, each using 31 samples of 50 launches: grouped-contiguous FP8 E4M3 GEMM with groups=16, valid_M_i=[129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144], padded_M_i=256, total_M=4096, K=2048, N=7168; grouped-masked FP8 E4M3 GEMM with groups=4, max_m=4096, expected_m=256, masks=[181,211,257,307], K=2048, N=7168; and dense FP8 E4M3 GEMM with M=4096, K=2048, N=7168; all outputs are BF16",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "scalar",
+      "unit": "ms"
+    },
+    "deepseek-ai__DeepGEMM__88": {
+      "command_sha256": "9950b5166a9363f63efe7c66bd7b6549edb41eff2b4d88bc9e26b6b1aefd4aa1",
+      "better": "lower",
+      "selection": "latency [ms] / median per-launch CUDA-event latency for contiguous grouped FP8 GEMM M=4096,N=4096,K=2048, expert rows [896,1024,896,1280], 31 samples of 10 launches after one-second settling and 20 warmups",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "scalar",
+      "unit": "ms"
+    },
+    "deepspeedai__DeepSpeed__8261": {
+      "command_sha256": "0f8a8255fe636d1d02635322f1888de51ac6e18af88b4ada3ab69e9575d255af",
+      "better": "lower",
+      "selection": "latency [ms] / group-gemm-triton-E32-M8-K4096-N14336-bf16-near-int32-offset",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "tagged",
+      "workloads": [
+        "group-gemm-triton-E32-M8-K4096-N14336-bf16-near-int32-offset"
+      ],
+      "unit": "ms",
+      "metric": "latency"
+    },
+    "deepspeedai__DeepSpeed__8331": {
+      "command_sha256": "0422784f2f6b272d0982a523b4eba1f618a900664daa59b837aed8487119a96b",
+      "better": "lower",
+      "selection": "latency [ms] / zero12-unscale-flat-gradient-2^27-fp32-clip0-loss-scale1",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "tagged",
+      "workloads": [
+        "zero12-unscale-flat-gradient-2^27-fp32-clip0-loss-scale1"
+      ],
+      "unit": "ms",
+      "metric": "latency"
+    },
+    "deepspeedai__DeepSpeed__8435": {
+      "command_sha256": "ead5a38be8a6c85ccc11f94412d74988e1b20c5d07253b08fc37361b7300af1b",
+      "better": "lower",
+      "selection": "latency [ms] / muon-update-1024x1024-fp32-standard-ns1-nesterov-finite",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "tagged",
+      "workloads": [
+        "muon-update-1024x1024-fp32-standard-ns1-nesterov-finite"
+      ],
+      "unit": "ms",
+      "metric": "latency"
+    },
+    "deepspeedai__DeepSpeed__8650": {
+      "command_sha256": "7f720ad286ef1557a3c40ad00503d7982919d4dfa377678ec4b137465dda1021",
+      "better": "lower",
+      "selection": "latency [ms] / grouped-experts-forward-e8-t1024-d1024-h4096-bf16-native-grouped-mm-swiglu",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "tagged",
+      "workloads": [
+        "grouped-experts-forward-e8-t1024-d1024-h4096-bf16-native-grouped-mm-swiglu"
+      ],
+      "unit": "ms",
+      "metric": "latency"
+    },
+    "deepspeedai__DeepSpeed__8671": {
+      "command_sha256": "b454b9ae0521e37bdfa3b77dafc017ad415d33bcb66b5abf6452855e26b4d1f3",
+      "better": "lower",
+      "selection": "latency [ms] / autoep-local-reorder-seq8192-top8-ep16-h2048-bf16-fwd-bwd; latency [ms] / autoep-local-reorder-seq16384-top8-ep16-h2048-bf16-fwd-bwd",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "tagged",
+      "workloads": [
+        "autoep-local-reorder-seq8192-top8-ep16-h2048-bf16-fwd-bwd",
+        "autoep-local-reorder-seq16384-top8-ep16-h2048-bf16-fwd-bwd"
+      ],
+      "unit": "ms",
+      "metric": "latency"
+    },
+    "deepspeedai__DeepSpeed__8678": {
+      "command_sha256": "20edb5d3c30940bf11b27a1ac10881d69c60bd9701400cbfea9f083c9cd69c75",
+      "better": "lower",
+      "selection": "latency [ms] / fused-weighted-restore-tokens8192-topk8-hidden2048-bf16-fp32scores-forward; latency [ms] / fused-weighted-restore-tokens16384-topk8-hidden2048-bf16-fp32scores-forward",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "tagged",
+      "workloads": [
+        "fused-weighted-restore-tokens8192-topk8-hidden2048-bf16-fp32scores-forward",
+        "fused-weighted-restore-tokens16384-topk8-hidden2048-bf16-fp32scores-forward"
+      ],
+      "unit": "ms",
+      "metric": "latency"
+    },
+    "deepspeedai__DeepSpeed__8732": {
+      "command_sha256": "6d3ddb442f5e40deb27b251203a5cf64bf240292a4e9eacec413d0b94f7ba0a5",
+      "better": "lower",
+      "selection": "latency [ms] / continuous-rollout-llama6l-b8-cap4-p64-n32-fp16; exclude throughput for the same workload",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "tagged",
+      "workloads": [
+        "continuous-rollout-llama6l-b8-cap4-p64-n32-fp16"
+      ],
+      "unit": "ms",
+      "metric": "latency"
+    },
+    "deepspeedai__DeepSpeed__8815": {
+      "command_sha256": "28940da2a542b1d0557f669e4f6c65a61ecfcd00c5657d9e231f4680799d2368",
+      "better": "lower",
+      "selection": "latency [ms] / lm-head-linear-allreduce-singleton-bf16-b4-s128-h4096-o4096",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "tagged",
+      "workloads": [
+        "lm-head-linear-allreduce-singleton-bf16-b4-s128-h4096-o4096"
+      ],
+      "unit": "ms",
+      "metric": "latency"
+    },
+    "deepspeedai__DeepSpeed__8839": {
+      "command_sha256": "0c3d9e6dfa2c758051c7bcdc8baf86b870882d8a400edc665e0975a82e839f53",
+      "better": "lower",
+      "selection": "latency [ms] / hybrid-rollout-continuous-prefill-b8-t1024-v65536-h512-l2-bf16-static-cache",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "tagged",
+      "workloads": [
+        "hybrid-rollout-continuous-prefill-b8-t1024-v65536-h512-l2-bf16-static-cache"
+      ],
+      "unit": "ms",
+      "metric": "latency"
+    },
+    "facebookresearch__xformers__299": {
+      "command_sha256": "32934171105d41100967c80651da455c385b4b55df62b63d07c49c34f85a1644",
+      "better": "lower",
+      "selection": "xf_fw_ms for fp16 and fp32; torch_fw_ms is a comparison diagnostic only",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "xformers",
+      "unit": "ms",
+      "workloads": [
+        "fp16",
+        "fp32"
+      ]
+    },
+    "flashinfer-ai__flashinfer__1483": {
+      "command_sha256": "e3807596a8bc3e9ec604a11c50a5cd024c963a9462721b69f4bc00509ea7895e",
+      "better": "lower",
+      "selection": "duration in microseconds; exclude effective bandwidth",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "duration",
+      "unit": "us",
+      "workloads": [
+        "vocab_size: 128512, batch_size: 32, distrib: normal_distribution(std=1), p: 1.0"
+      ]
+    },
+    "flashinfer-ai__flashinfer__439": {
+      "command_sha256": "d0f2c19f5985454b47216a1a383e91b4587def469a6de3d62517db3a907ce3c8",
+      "better": "higher",
+      "selection": "items_per_sec; exclude elapsed_ms",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "named",
+      "keys": [
+        "items_per_sec"
+      ],
+      "unit": "items/s"
+    },
+    "ggml-org__llama.cpp__20391": {
+      "command_sha256": "dc13dab13331090bf4ee39821b563bf29909822f9ee0d1dd571b4fa5a5f54fce",
+      "better": "higher",
+      "selection": "avg_ts (tokens per second) from llama-bench JSON for the requested generation workload",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "llama",
+      "unit": "tokens/s",
+      "model_filename": "Qwen_Qwen3.5-0.8B-Q8_0.gguf"
+    },
+    "tinygrad__tinygrad__17088": {
+      "command_sha256": "824cfd34f7b0b890311a2e803cafccdabfd17fd5a543692d81ce0b0cab78b447",
+      "better": "lower",
+      "selection": "latency [ms] / median synchronized CUDA latency per composite iteration of one TinyJit-replayed float32 logsumexp backward on (4,12,64,64) axis=-1 plus one float32 logcumsumexp backward on (64,512) axis=-1; 10 warmups, 21 samples of 5 iterations",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "scalar",
+      "unit": "ms"
+    },
+    "tinygrad__tinygrad__18859": {
+      "command_sha256": "2eee58691e82aba692a29e14dba9f02120367bf2ef102c8c6e4e53cc3b7a92b1",
+      "better": "lower",
+      "selection": "latency [ms] / tinyjit-8x-add-contiguous-4096-f32-cuda-submit",
+      "source": "20261103 EVALUATION.md and embedded recipe output statements",
+      "parser": "tagged",
+      "workloads": [
+        "tinyjit-8x-add-contiguous-4096-f32-cuda-submit"
+      ],
+      "unit": "ms",
+      "metric": "latency"
+    }
+  }
+}

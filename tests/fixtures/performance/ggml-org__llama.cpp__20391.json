@@ -1,0 +1,12 @@
+{
+  "instance_id": "ggml-org__llama.cpp__20391",
+  "source": {
+    "kind": "synthetic",
+    "description": "Synthetic numeric values; output syntax and selected keys/workloads follow the frozen 2026-11-03 recipe. These are not GPU measurements.",
+    "dataset_sha256": "b2e659879519dfb70080adf2b53cc1718f2ef0586b89797c460299d59a0c05d0"
+  },
+  "command_sha256": "dc13dab13331090bf4ee39821b563bf29909822f9ee0d1dd571b4fa5a5f54fce",
+  "base": "[{\"model_filename\": \"Qwen_Qwen3.5-0.8B-Q8_0.gguf\", \"n_prompt\": 0, \"n_gen\": 128, \"avg_ts\": 10, \"stddev_ts\": 999}]",
+  "candidate": "[{\"model_filename\": \"Qwen_Qwen3.5-0.8B-Q8_0.gguf\", \"n_prompt\": 0, \"n_gen\": 128, \"avg_ts\": 12, \"stddev_ts\": 999}]",
+  "expected_improvement_percent": 20
+}

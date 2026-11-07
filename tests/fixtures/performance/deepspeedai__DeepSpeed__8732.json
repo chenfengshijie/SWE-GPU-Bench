@@ -1,0 +1,12 @@
+{
+  "instance_id": "deepspeedai__DeepSpeed__8732",
+  "source": {
+    "kind": "synthetic",
+    "description": "Synthetic numeric values; output syntax and selected keys/workloads follow the frozen 2026-11-03 recipe. These are not GPU measurements.",
+    "dataset_sha256": "b2e659879519dfb70080adf2b53cc1718f2ef0586b89797c460299d59a0c05d0"
+  },
+  "command_sha256": "6d3ddb442f5e40deb27b251203a5cf64bf240292a4e9eacec413d0b94f7ba0a5",
+  "base": "SWE_GPU_METRIC {\"name\": \"latency\", \"unit\": \"ms\", \"workload\": \"continuous-rollout-llama6l-b8-cap4-p64-n32-fp16\", \"value\": 10}\nSWE_GPU_METRIC {\"name\": \"throughput\", \"unit\": \"tokens/s\", \"workload\": \"diagnostic\", \"value\": 99}\n",
+  "candidate": "SWE_GPU_METRIC {\"name\": \"latency\", \"unit\": \"ms\", \"workload\": \"continuous-rollout-llama6l-b8-cap4-p64-n32-fp16\", \"value\": 8}\nSWE_GPU_METRIC {\"name\": \"throughput\", \"unit\": \"tokens/s\", \"workload\": \"diagnostic\", \"value\": 99}\n",
+  "expected_improvement_percent": 20
+}

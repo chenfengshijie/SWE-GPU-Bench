@@ -1,0 +1,12 @@
+{
+  "instance_id": "NVIDIA__cuda-python__709",
+  "source": {
+    "kind": "synthetic",
+    "description": "Synthetic numeric values; output syntax and selected keys/workloads follow the frozen 2026-11-03 recipe. These are not GPU measurements.",
+    "dataset_sha256": "b2e659879519dfb70080adf2b53cc1718f2ef0586b89797c460299d59a0c05d0"
+  },
+  "command_sha256": "95b9d9242b63cffc157fde9da449084150ce6d9f42bf8d108b3cbc6e0e5a6b61",
+  "base": "event_create_close_us_median=10\nstream_create_close_us_median=10\nmin=0.000001\ntotal_seconds=999\n",
+  "candidate": "event_create_close_us_median=8\nstream_create_close_us_median=8\nmin=0.000001\ntotal_seconds=999\n",
+  "expected_improvement_percent": 20
+}

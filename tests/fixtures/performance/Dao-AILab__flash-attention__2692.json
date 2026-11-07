@@ -1,0 +1,12 @@
+{
+  "instance_id": "Dao-AILab__flash-attention__2692",
+  "source": {
+    "kind": "synthetic",
+    "description": "Synthetic numeric values; output syntax and selected keys/workloads follow the frozen 2026-11-03 recipe. These are not GPU measurements.",
+    "dataset_sha256": "b2e659879519dfb70080adf2b53cc1718f2ef0586b89797c460299d59a0c05d0"
+  },
+  "command_sha256": "4e34fe2879d05f79dc0445c15ec042e1c5b6f1a33a585df54e05acde4b849e75",
+  "base": "SWE_GPU_METRIC {\"name\": \"latency\", \"unit\": \"ms\", \"workload\": \"flash_attn_varlen-sparse-mixed-b64-q1x63+q512-k512-h6-hkv2-d128-bf16-splits4\", \"value\": 10}\nSWE_GPU_METRIC {\"name\": \"throughput\", \"unit\": \"tokens/s\", \"workload\": \"diagnostic\", \"value\": 99}\n",
+  "candidate": "SWE_GPU_METRIC {\"name\": \"latency\", \"unit\": \"ms\", \"workload\": \"flash_attn_varlen-sparse-mixed-b64-q1x63+q512-k512-h6-hkv2-d128-bf16-splits4\", \"value\": 8}\nSWE_GPU_METRIC {\"name\": \"throughput\", \"unit\": \"tokens/s\", \"workload\": \"diagnostic\", \"value\": 99}\n",
+  "expected_improvement_percent": 20
+}

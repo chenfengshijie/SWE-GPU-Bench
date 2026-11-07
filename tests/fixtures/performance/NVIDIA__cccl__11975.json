@@ -1,0 +1,12 @@
+{
+  "instance_id": "NVIDIA__cccl__11975",
+  "source": {
+    "kind": "synthetic",
+    "description": "Synthetic numeric values; output syntax and selected keys/workloads follow the frozen 2026-11-03 recipe. These are not GPU measurements.",
+    "dataset_sha256": "b2e659879519dfb70080adf2b53cc1718f2ef0586b89797c460299d59a0c05d0"
+  },
+  "command_sha256": "3ae3c79eef748b8e672cab8a14cc142ecf8aedd0136510595843df3ba404589f",
+  "base": "SWE_GPU_METRIC {\"name\": \"latency\", \"unit\": \"ms\", \"workload\": \"fixed_capacity_map-for_each-4096-colliding-int32-cg1-bucket1\", \"value\": 10}\nSWE_GPU_METRIC {\"name\": \"throughput\", \"unit\": \"tokens/s\", \"workload\": \"diagnostic\", \"value\": 99}\n",
+  "candidate": "SWE_GPU_METRIC {\"name\": \"latency\", \"unit\": \"ms\", \"workload\": \"fixed_capacity_map-for_each-4096-colliding-int32-cg1-bucket1\", \"value\": 8}\nSWE_GPU_METRIC {\"name\": \"throughput\", \"unit\": \"tokens/s\", \"workload\": \"diagnostic\", \"value\": 99}\n",
+  "expected_improvement_percent": 20
+}

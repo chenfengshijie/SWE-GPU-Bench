@@ -1,0 +1,12 @@
+{
+  "instance_id": "NVIDIA__cccl__12157",
+  "source": {
+    "kind": "synthetic",
+    "description": "Synthetic numeric values; output syntax and selected keys/workloads follow the frozen 2026-11-03 recipe. These are not GPU measurements.",
+    "dataset_sha256": "b2e659879519dfb70080adf2b53cc1718f2ef0586b89797c460299d59a0c05d0"
+  },
+  "command_sha256": "a4738f5a2671fcf82f51ff9b41b51433c9d226dbbae8ab756775c80cb97554c1",
+  "base": "SWE_GPU_METRIC {\"name\": \"latency\", \"unit\": \"ms\", \"workload\": \"cuda-bit_fns-u8-131072x256-runtime-rank\", \"value\": 10}\nSWE_GPU_METRIC {\"name\": \"latency\", \"unit\": \"ms\", \"workload\": \"cuda-bit_fns-u16-131072x256-runtime-rank\", \"value\": 10}\nSWE_GPU_METRIC {\"name\": \"latency\", \"unit\": \"ms\", \"workload\": \"cuda-bit_fns-u32-131072x256-runtime-rank\", \"value\": 10}\nSWE_GPU_METRIC {\"name\": \"latency\", \"unit\": \"ms\", \"workload\": \"cuda-bit_fns-u64-131072x256-runtime-rank\", \"value\": 10}\nSWE_GPU_METRIC {\"name\": \"throughput\", \"unit\": \"tokens/s\", \"workload\": \"diagnostic\", \"value\": 99}\n",
+  "candidate": "SWE_GPU_METRIC {\"name\": \"latency\", \"unit\": \"ms\", \"workload\": \"cuda-bit_fns-u8-131072x256-runtime-rank\", \"value\": 8}\nSWE_GPU_METRIC {\"name\": \"latency\", \"unit\": \"ms\", \"workload\": \"cuda-bit_fns-u16-131072x256-runtime-rank\", \"value\": 8}\nSWE_GPU_METRIC {\"name\": \"latency\", \"unit\": \"ms\", \"workload\": \"cuda-bit_fns-u32-131072x256-runtime-rank\", \"value\": 8}\nSWE_GPU_METRIC {\"name\": \"latency\", \"unit\": \"ms\", \"workload\": \"cuda-bit_fns-u64-131072x256-runtime-rank\", \"value\": 8}\nSWE_GPU_METRIC {\"name\": \"throughput\", \"unit\": \"tokens/s\", \"workload\": \"diagnostic\", \"value\": 99}\n",
+  "expected_improvement_percent": 20
+}

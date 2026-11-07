@@ -1,0 +1,12 @@
+{
+  "instance_id": "flashinfer-ai__flashinfer__439",
+  "source": {
+    "kind": "synthetic",
+    "description": "Synthetic numeric values; output syntax and selected keys/workloads follow the frozen 2026-11-03 recipe. These are not GPU measurements.",
+    "dataset_sha256": "b2e659879519dfb70080adf2b53cc1718f2ef0586b89797c460299d59a0c05d0"
+  },
+  "command_sha256": "d0f2c19f5985454b47216a1a383e91b4587def469a6de3d62517db3a907ce3c8",
+  "base": "items_per_sec=10\nmin=0.000001\ntotal_seconds=999\n",
+  "candidate": "items_per_sec=12\nmin=0.000001\ntotal_seconds=999\n",
+  "expected_improvement_percent": 20
+}

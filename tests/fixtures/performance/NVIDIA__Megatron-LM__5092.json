@@ -1,0 +1,12 @@
+{
+  "instance_id": "NVIDIA__Megatron-LM__5092",
+  "source": {
+    "kind": "synthetic",
+    "description": "Synthetic numeric values; output syntax and selected keys/workloads follow the frozen 2026-11-03 recipe. These are not GPU measurements.",
+    "dataset_sha256": "b2e659879519dfb70080adf2b53cc1718f2ef0586b89797c460299d59a0c05d0"
+  },
+  "command_sha256": "67454d4c4352e36259ecaa09f4e7a098a3cbc912e0d65a21d56ac9dd5bb03ff4",
+  "base": "latency_ms=10\nmin=0.000001\ntotal_seconds=999\n",
+  "candidate": "latency_ms=8\nmin=0.000001\ntotal_seconds=999\n",
+  "expected_improvement_percent": 20
+}

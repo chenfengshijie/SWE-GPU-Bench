@@ -1,0 +1,173 @@
+{
+  "cpu_tests": {
+    "passed": 449,
+    "subtests_passed": 3
+  },
+  "date_utc": "2026-11-06",
+  "evidence_policy": "Raw configuration, receipts, logs and candidates remain local. Public fields are selected explicitly; deployment identifiers are omitted.",
+  "limits": {
+    "case_timeout_seconds": 7200,
+    "gpu_per_task": 1,
+    "max_concurrent_jobs": 2,
+    "max_transient_retries": 2
+  },
+  "performance_parser_fixtures": {
+    "count": 39,
+    "kind": "synthetic"
+  },
+  "public_code_snapshots": [
+    "fd5ea77de849d74f5f2413e504b3d26a1a7fb3f14b12258ff8d42d75b2ebe11c"
+  ],
+  "recovery": [
+    {
+      "model_called": false,
+      "phase": "source_checkout",
+      "raw_category": "infrastructure_blocked",
+      "reason": "case_timeout",
+      "replacement_submitted_after_confirmed_terminal": true,
+      "result_sha256": "db9831042d701b28a36c8624a8a2f2da1833ad21b981dc647e36cf2bc98f5ff4"
+    }
+  ],
+  "rows": [
+    {
+      "backend": "external",
+      "candidate_sha256": "55309a12d8a28bdf391ca403198cb08c243bb3548dcff84c20909dbaafca2a80",
+      "cuda_compiler_version": "12.8",
+      "driver_version": "535.161.08",
+      "framework": "text API",
+      "generation_provenance": {
+        "candidate_manifest_sha256": "2fcfec32d651bedb7a94672a8bced261d72009360aa7705322e3f2b92a155731",
+        "model_output_sha256": "ce6b998f5efbebb8e105493b6513c2dfda8575ceeabd7df99ce103e42c4f703b",
+        "public_code_sha256": "63721475174de333ee19512b4555a442ee75fc3680490077fbc8d38b656d5de7"
+      },
+      "gpu": "NVIDIA H100 80GB",
+      "instance_id": "NVIDIA__cuda-python__1221",
+      "mode": "oracle",
+      "model": "GPT-6.1",
+      "native_cuda_preflight_count": 2,
+      "public_code_sha256": "fd5ea77de849d74f5f2413e504b3d26a1a7fb3f14b12258ff8d42d75b2ebe11c",
+      "pytest_passed": 2,
+      "raw_category": "passed",
+      "reason": "test_summary_or_executed_assertion_driver",
+      "reasoning_effort": "high",
+      "record_sha256": "d673b9c5978d9c3cbb2bfe63163b5e087f6bba92aee97c3ac3f162b09c6dcedf",
+      "result_sha256": "94fbf110564f934acdc7ba4182ad361cb15d8326a42b0c1cfd7cb5f35252ab3f",
+      "reused_candidate": true,
+      "solver_preflight_passed": true,
+      "task_type": "correctness",
+      "tests_executed": true,
+      "worker_seconds": 72.21902203559875
+    },
+    {
+      "backend": "external",
+      "candidate_sha256": "2ae605bac185d1e85800a674d0942ffb0cf70196ae38c8dd148ab99040726185",
+      "cuda_compiler_version": "12.8",
+      "driver_version": "535.161.08",
+      "framework": "Codex",
+      "generation_provenance": {
+        "candidate_manifest_sha256": "89d46f07f3fb11b99e9d20167023fa5fe56bad51c1abdd22fa97f5fa3bf27055",
+        "model_output_sha256": "d0e4a79b951fc8924f0199b707dc6b28f5121719eafaf418459f675f2944e0ce",
+        "public_code_sha256": "63721475174de333ee19512b4555a442ee75fc3680490077fbc8d38b656d5de7"
+      },
+      "gpu": "NVIDIA H100 80GB",
+      "instance_id": "NVIDIA__cuda-python__1221",
+      "mode": "agent",
+      "model": "GPT-6.1",
+      "native_cuda_preflight_count": 2,
+      "public_code_sha256": "fd5ea77de849d74f5f2413e504b3d26a1a7fb3f14b12258ff8d42d75b2ebe11c",
+      "pytest_passed": 2,
+      "raw_category": "passed",
+      "reason": "test_summary_or_executed_assertion_driver",
+      "reasoning_effort": "high",
+      "record_sha256": "d673b9c5978d9c3cbb2bfe63163b5e087f6bba92aee97c3ac3f162b09c6dcedf",
+      "result_sha256": "01da22d195c2b764bbd503bd10ebe7fb41eb10ee719b964d063b7dd14b3e4081",
+      "reused_candidate": true,
+      "solver_preflight_passed": true,
+      "task_type": "correctness",
+      "tests_executed": true,
+      "worker_seconds": 71.07839870452881
+    },
+    {
+      "backend": "external",
+      "candidate_sha256": "1263dbb66742b8f4b87f081065479f329554d55f59bf56364c397908671e7575",
+      "cuda_compiler_version": "12.8",
+      "driver_version": "535.161.08",
+      "framework": "OpenCode",
+      "generation_provenance": {
+        "candidate_manifest_sha256": "b2abb2e73e6753affd06126f134315a894e51dcb418ec1bf9f38d7c51770302e",
+        "model_output_sha256": "f2445749504cdaaa4a7215a6b9c2edb449378414db9ca7863e5adee754cf7864",
+        "public_code_sha256": "3f6927954c331cd1f6cde783d2b2d917dc2f7392943a1c10e3ab467fcb07fc36"
+      },
+      "gpu": "NVIDIA H100 80GB",
+      "instance_id": "NVIDIA__cuda-python__1221",
+      "mode": "agent",
+      "model": "DeepSeek-V4.1-Flash",
+      "native_cuda_preflight_count": 2,
+      "performance": {
+        "base": {
+          "launch_config_to_native_ms": 0.001668
+        },
+        "better": "lower",
+        "candidate": {
+          "launch_config_to_native_ms": 0.000961
+        },
+        "improved": true,
+        "improvements_percent": {
+          "launch_config_to_native_ms": 42.38609112709832
+        },
+        "mean_improvement_percent": 42.38609112709832,
+        "statistical_significance": "not_claimed",
+        "unit": "ms"
+      },
+      "public_code_sha256": "fd5ea77de849d74f5f2413e504b3d26a1a7fb3f14b12258ff8d42d75b2ebe11c",
+      "pytest_passed": 1,
+      "raw_category": "passed",
+      "reason": "deterministic_numeric_comparison",
+      "reasoning_effort": "high",
+      "record_sha256": "3b8cf25dbed6f629606622916bfd32c2f44d47e8cef37c6bdafb53ca5d90e46d",
+      "result_sha256": "8bb97cb6d875383a8114896d6b436deb4a7915cd6a5621e3bf9dc14c28980af0",
+      "reused_candidate": true,
+      "solver_preflight_passed": true,
+      "task_type": "performance",
+      "tests_executed": true,
+      "worker_seconds": 111.65414905548096
+    },
+    {
+      "backend": "external",
+      "candidate_sha256": null,
+      "cuda_compiler_version": "12.8",
+      "driver_version": "535.161.08",
+      "framework": "text API",
+      "generation_provenance": {
+        "candidate_created": false,
+        "model_output_bytes": 0,
+        "model_output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "gpu": "NVIDIA H100 80GB",
+      "instance_id": "NVIDIA__cuda-python__1221",
+      "mode": "oracle",
+      "model": "DeepSeek-V4.1-Flash",
+      "model_usage": {
+        "attempted_calls": 1,
+        "input_tokens": 3027,
+        "output_tokens": 16384,
+        "reasoning_tokens": 16384,
+        "reported_calls": 1
+      },
+      "native_cuda_preflight_count": 2,
+      "public_code_sha256": "fd5ea77de849d74f5f2413e504b3d26a1a7fb3f14b12258ff8d42d75b2ebe11c",
+      "pytest_passed": 0,
+      "raw_category": "model_output_error",
+      "reason": "completed_response_invalid_patch",
+      "reasoning_effort": "high",
+      "record_sha256": "3b8cf25dbed6f629606622916bfd32c2f44d47e8cef37c6bdafb53ca5d90e46d",
+      "result_sha256": "3f88d3498ebef9425aed8fb39659d7b261622062de693050db0e7028d6de2af9",
+      "reused_candidate": false,
+      "solver_preflight_passed": true,
+      "task_type": "performance",
+      "tests_executed": false,
+      "worker_seconds": 40.51392841339111
+    }
+  ],
+  "schema_version": 1
+}

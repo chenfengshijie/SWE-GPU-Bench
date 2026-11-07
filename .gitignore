@@ -1,0 +1,32 @@
+# Python
+.venv/
+build/
+dist/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.hypothesis/
+
+# Local configuration
+.env
+.env.*
+opencode.json
+
+# Generated data and run outputs
+artifacts/
+data/
+tmp/
+logs/
+results/
+generated_batches/
+analysis/
+EvalResults/
+PerfEvalResults/
+PerfValidateResults/
+OraclePatches/
+
+# Notebooks and local editor files
+.ipynb_checkpoints/
+.vscode/
+.idea/

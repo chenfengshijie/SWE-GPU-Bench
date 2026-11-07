@@ -1,0 +1,12 @@
+{
+  "instance_id": "tinygrad__tinygrad__17088",
+  "source": {
+    "kind": "synthetic",
+    "description": "Synthetic numeric values; output syntax and selected keys/workloads follow the frozen 2026-11-03 recipe. These are not GPU measurements.",
+    "dataset_sha256": "b2e659879519dfb70080adf2b53cc1718f2ef0586b89797c460299d59a0c05d0"
+  },
+  "command_sha256": "824cfd34f7b0b890311a2e803cafccdabfd17fd5a543692d81ce0b0cab78b447",
+  "base": "10\n",
+  "candidate": "8\n",
+  "expected_improvement_percent": 20
+}

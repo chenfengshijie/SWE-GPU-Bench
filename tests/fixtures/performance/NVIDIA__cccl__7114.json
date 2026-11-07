@@ -1,0 +1,13 @@
+{
+  "instance_id": "NVIDIA__cccl__7114",
+  "source": {
+    "kind": "synthetic",
+    "description": "Synthetic values in the official NVIDIA/nvbench JSON format; axes from frozen recipe commands.",
+    "url": "https://github.com/NVIDIA/nvbench/blob/main/nvbench/json_printer.cu",
+    "dataset_sha256": "b2e659879519dfb70080adf2b53cc1718f2ef0586b89797c460299d59a0c05d0"
+  },
+  "command_sha256": "ced3d8e906e926dead40df1228fb6a4af6b2513607c97476dd0d5ede9babf1d7",
+  "base": "{\"benchmarks\": [{\"name\": \"large\", \"states\": [{\"axis_values\": [{\"name\": \"T\", \"type\": \"string\", \"value\": \"I32\"}, {\"name\": \"Elements\", \"type\": \"string\", \"value\": \"268435456\"}, {\"name\": \"SegmentSize\", \"type\": \"string\", \"value\": \"65536\"}], \"device\": 0, \"is_skipped\": false, \"summaries\": [{\"tag\": \"nv/cold/time/cpu/mean\", \"data\": [{\"name\": \"value\", \"value\": \"999\"}]}, {\"tag\": \"nv/cold/time/gpu/mean\", \"data\": [{\"name\": \"value\", \"type\": \"float64\", \"value\": \"10\"}]}]}]}]}",
+  "candidate": "{\"benchmarks\": [{\"name\": \"large\", \"states\": [{\"axis_values\": [{\"name\": \"T\", \"type\": \"string\", \"value\": \"I32\"}, {\"name\": \"Elements\", \"type\": \"string\", \"value\": \"268435456\"}, {\"name\": \"SegmentSize\", \"type\": \"string\", \"value\": \"65536\"}], \"device\": 0, \"is_skipped\": false, \"summaries\": [{\"tag\": \"nv/cold/time/cpu/mean\", \"data\": [{\"name\": \"value\", \"value\": \"999\"}]}, {\"tag\": \"nv/cold/time/gpu/mean\", \"data\": [{\"name\": \"value\", \"type\": \"float64\", \"value\": \"8\"}]}]}]}]}",
+  "expected_improvement_percent": 20
+}

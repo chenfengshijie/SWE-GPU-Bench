@@ -1,0 +1,13 @@
+{
+  "instance_id": "NVIDIA__cutlass__53",
+  "source": {
+    "kind": "synthetic",
+    "description": "Synthetic values matching pinned CUTLASS PerformanceResult::header/operator<< output; excludes pretty-print duplicates and GFLOPs.",
+    "url": "https://github.com/NVIDIA/cutlass/blob/eb417359338b1207823500212cee3044d1353b14/tools/test/perf/performance_result.h",
+    "dataset_sha256": "b2e659879519dfb70080adf2b53cc1718f2ef0586b89797c460299d59a0c05d0"
+  },
+  "command_sha256": "6e2e557da3dbcae9e0b43091f62400c022a916c2640f1bfab1aeda52e63cc4ee",
+  "base": "Provider,Kernel,M,N,K,Layout_A,Layout_B,Beta,batch_count,Disposition,Runtime,GFLOPs\nCutlass,s884gemm_tn,480,280,224,column,row,0,1,passed,10,999\n",
+  "candidate": "Provider,Kernel,M,N,K,Layout_A,Layout_B,Beta,batch_count,Disposition,Runtime,GFLOPs\nCutlass,s884gemm_tn,480,280,224,column,row,0,1,passed,8,999\n",
+  "expected_improvement_percent": 20
+}

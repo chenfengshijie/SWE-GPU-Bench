@@ -1,0 +1,48 @@
+# Paths are resolved relative to this file. Select a compatible container first.
+backend = "local"
+profiles = "profiles.toml"
+output_root = "../../artifacts/runs/evaluate"
+local_root = "/tmp/swe-gpu-campaign"
+concurrency = 1
+timeout_seconds = 7200
+git_timeout_seconds = 600
+max_transient_retries = 2
+cooldown_seconds = 300
+poll_seconds = 15
+
+[hardware]
+gpu_name = "H100"
+
+[scoring]
+nonpass_as_incorrect = true
+
+[[datasets]]
+task_type = "correctness"
+path = "../../data/correctness.jsonl"
+# sha256 = "expected SHA256 of the complete input file"
+# instance_ids = ["NVIDIA__cuda-python__1221"]
+
+[[datasets]]
+task_type = "performance"
+path = "../../data/perf.jsonl"
+
+[[models]]
+name = "model"
+oracle_profile = "model"
+agent_profile = "model"
+modes = ["oracle", "agent"]
+task_types = ["correctness", "performance"]
+
+# For Docker set backend="docker" at the top. One device per concurrent task.
+# [docker]
+# devices = ["0"]
+# cpus = 8
+# memory = "32g"
+# shm_size = "8g"
+# forward_env = ["OPENAI_API_KEY"]
+# extra_args = ["--cap-add=SYS_ADMIN", "--security-opt=apparmor=unconfined", "--security-opt=seccomp=unconfined"]
+
+# For a scheduler set backend="external". Keep deployment adapters outside Git.
+# [external]
+# script = "/path/to/your/scheduler-adapter.py"
+# sha256 = "expected adapter file SHA256"

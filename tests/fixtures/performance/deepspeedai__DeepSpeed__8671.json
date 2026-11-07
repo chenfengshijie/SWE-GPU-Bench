@@ -1,0 +1,12 @@
+{
+  "instance_id": "deepspeedai__DeepSpeed__8671",
+  "source": {
+    "kind": "synthetic",
+    "description": "Synthetic numeric values; output syntax and selected keys/workloads follow the frozen 2026-11-03 recipe. These are not GPU measurements.",
+    "dataset_sha256": "b2e659879519dfb70080adf2b53cc1718f2ef0586b89797c460299d59a0c05d0"
+  },
+  "command_sha256": "b454b9ae0521e37bdfa3b77dafc017ad415d33bcb66b5abf6452855e26b4d1f3",
+  "base": "SWE_GPU_METRIC {\"name\": \"latency\", \"unit\": \"ms\", \"workload\": \"autoep-local-reorder-seq8192-top8-ep16-h2048-bf16-fwd-bwd\", \"value\": 10}\nSWE_GPU_METRIC {\"name\": \"latency\", \"unit\": \"ms\", \"workload\": \"autoep-local-reorder-seq16384-top8-ep16-h2048-bf16-fwd-bwd\", \"value\": 10}\nSWE_GPU_METRIC {\"name\": \"throughput\", \"unit\": \"tokens/s\", \"workload\": \"diagnostic\", \"value\": 99}\n",
+  "candidate": "SWE_GPU_METRIC {\"name\": \"latency\", \"unit\": \"ms\", \"workload\": \"autoep-local-reorder-seq8192-top8-ep16-h2048-bf16-fwd-bwd\", \"value\": 8}\nSWE_GPU_METRIC {\"name\": \"latency\", \"unit\": \"ms\", \"workload\": \"autoep-local-reorder-seq16384-top8-ep16-h2048-bf16-fwd-bwd\", \"value\": 8}\nSWE_GPU_METRIC {\"name\": \"throughput\", \"unit\": \"tokens/s\", \"workload\": \"diagnostic\", \"value\": 99}\n",
+  "expected_improvement_percent": 20
+}
