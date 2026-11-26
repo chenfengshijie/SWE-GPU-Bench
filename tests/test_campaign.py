@@ -168,18 +168,44 @@ def test_summary_preserves_assumptions_and_actual_coverage(config):
     assert all(g['scoring_denominator'] == 1 for g in summary['groups'])
 
 
-def test_history_changed_inputs_never_count_current_execution(config):
+@pytest.mark.parametrize('kind,changed,rerun', [
+    ('correctness', True, True), ('correctness', False, False), ('performance', False, True),
+])
+def test_history_scoring_and_scheduling(config, kind, changed, rerun):
     cfg = read_json(config)
     row = json.loads((config.parent / 'data.jsonl').read_text())
-    row['problem_statement'] = 'old'
+    cfg['models'][0].update(task_types=[kind], modes=['oracle'])
+    if changed:
+        row['problem_statement'] = 'old'
     atomic_jsonl(config.parent / 'old.jsonl', [row])
-    atomic_json(config.parent / 'old-result.json', {'instance_id': row['instance_id'], 'mode': 'oracle', 'status': 'error'})
-    cfg['history'] = [dict(task_id='correctness--oracle--fake--org__repo__1', result='old-result.json', dataset='old.jsonl',
+    stdout = config.parent / 'test.out'
+    stderr = config.parent / 'test.err'
+    stdout.write_text('1 passed')
+    stderr.write_text('')
+    atomic_json(config.parent / 'old-result.json', {
+        'instance_id': row['instance_id'], 'mode': 'oracle', 'status': 'passed',
+        'test_results': [{'command': 'pytest', 'stdout_log': str(stdout), 'stderr_log': str(stderr), 'exit_code': 0}],
+    })
+    cfg['history'] = [dict(task_id=kind + '--oracle--fake--org__repo__1', result='old-result.json', dataset='old.jsonl',
                           result_sha256=sha256(config.parent / 'old-result.json'), dataset_sha256=sha256(config.parent / 'old.jsonl'))]
     atomic_json(config, cfg)
     run = c.prepare(config)
     rows = [json.loads(l) for l in (run / 'results-table.jsonl').read_text().splitlines()]
-    assert rows[0]['historical'] and rows[0]['data_changed'] and not rows[0]['current_input_executed']
+    assert rows[0]['historical'] and not rows[0]['current_input_executed']
+    assert rows[0]['scored_outcome'] == ('unresolved' if rerun else 'passed')
+    group = c.summarize(run)['groups'][0]
+    assert group['evaluated'] == group['scoring_denominator'] == int(not rerun)
+    platform = Platform()
+    c.tick(run, platform)
+    assert len(platform.submissions) == int(rerun)
+
+    raw = read_json(config.parent / 'old-result.json')
+    raw['instance_id'] = 'different-task'
+    atomic_json(config.parent / 'old-result.json', raw)
+    cfg['history'][0]['result_sha256'] = sha256(config.parent / 'old-result.json')
+    atomic_json(config, cfg)
+    with pytest.raises(ValueError, match='Historical result instance_id'):
+        c.prepare(config)
 
 
 def test_local_without_gpu_records_blocked(config, monkeypatch):

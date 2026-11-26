@@ -287,6 +287,8 @@ def execute_perf_validate(
         return error(f"{failure_prefix}_APPLY_FAILURE")
 
     records["post_patch_setup"], test_patch_status, records["test"] = agent_eval.grade_patched_repo(record, case_paths)
+    if not did_commands_succeed(records["post_patch_setup"]):
+        return error("POST_PATCH_SETUP_FAILURE")
     if is_test_patch_failure_status(test_patch_status):
         return error("TEST_PATCH_APPLY_FAILURE")
     status, failure_category = agent_eval.test_outcome(records["test"])

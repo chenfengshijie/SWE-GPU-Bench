@@ -118,9 +118,9 @@ class EvalStatsTests(unittest.TestCase):
             },
         )
 
-    def test_did_commands_succeed_only_checks_last_command(self):
+    def test_did_commands_succeed_checks_every_command(self):
         self.assertTrue(did_commands_succeed([]))
-        self.assertTrue(did_commands_succeed([{"exit_code": 1}, {"exit_code": 0}]))
+        self.assertFalse(did_commands_succeed([{"exit_code": 1}, {"exit_code": 0}]))
         self.assertFalse(did_commands_succeed([{"exit_code": 0}, {"exit_code": 1}]))
 
 
@@ -585,26 +585,17 @@ class ExecuteEvalTests(unittest.TestCase):
             self.assertEqual(result["evaluation_stats"]["post_patch_setup_commands"], 1)
             self.assertEqual(len(result["post_patch_setup_results"]), 1)
 
-    def test_execute_eval_continues_when_setup_recovers_by_final_command(self):
+    def test_execute_eval_stops_when_an_earlier_setup_command_fails(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             record = make_eval_record()
-            record["setup_commands"] = ["echo fail", "echo recover"]
+            record["setup_commands"] = ["false", "true"]
             dataset_path = root / "dataset.jsonl"
             dataset_path.write_text(json.dumps(record) + "\n", encoding="utf-8")
             prompt_template = root / "agent_eval.md"
             prompt_template.write_text("Template\n", encoding="utf-8")
 
             fake_runner = mock.Mock()
-            fake_runner.invoke.return_value = AgentInvocationResult(
-                command=["codex", "exec"],
-                exit_code=0,
-                stdout_path=root / "stdout.log",
-                stderr_path=root / "stderr.log",
-                elapsed_seconds=1.0,
-                agent_stats={},
-            )
-
             def fake_clone(case_paths, repo_slug, head_sha, pr_number=None, cache_root=None):
                 (case_paths.repo_dir / "README.md").write_text("ok\n", encoding="utf-8")
 
@@ -638,8 +629,9 @@ class ExecuteEvalTests(unittest.TestCase):
                     force=False,
                 )
 
-            fake_runner.invoke.assert_called_once()
-            self.assertEqual(result["status"], "passed")
+            fake_runner.invoke.assert_not_called()
+            self.assertEqual(result["status"], "error")
+            self.assertEqual(result["failure_category"], "SETUP_FAILURE")
 
     def test_execute_eval_stops_when_setup_final_command_fails(self):
         with tempfile.TemporaryDirectory() as tmp:

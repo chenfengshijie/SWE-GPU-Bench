@@ -6,6 +6,7 @@ import time
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
+from swe_gpu_bench.core.shell import did_commands_succeed as did_commands_succeed
 from swe_gpu_bench.shared.artifacts import atomic_json
 
 
@@ -85,13 +86,6 @@ def run_logged_shell_commands(
         )
         for index, command in enumerate(commands, start=1)
     ]
-
-
-def did_commands_succeed(records: Sequence[Mapping[str, Any]]) -> bool:
-    if not records:
-        return True
-    last_exit_code = records[-1].get("exit_code")
-    return bool(last_exit_code == 0)
 
 
 def strip_phase(records: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:

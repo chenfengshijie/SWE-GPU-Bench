@@ -216,7 +216,7 @@ model failures. `nonpass_as_incorrect=false` leaves them unscored.
 Explicit `history` entries require task ID, result path/hash and dataset path/hash.
 Imports retain raw results, original source hashes and changed-field lists. Their
 current-input execution coverage is zero even when an old result is retained.
-Historical LLM performance judgments require numeric revalidation. No implicit
+When the record changes, the controller schedules a fresh evaluation and leaves the historical result unscored. Historical performance results also require a fresh numeric evaluation. No implicit
 search of old workspaces or best-of selection occurs.
 
 Exclusions require `task_type`, `instance_id`, exact `dataset_sha256`, `reason`,

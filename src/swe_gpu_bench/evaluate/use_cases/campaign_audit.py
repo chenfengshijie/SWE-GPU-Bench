@@ -5,7 +5,6 @@ unknown execution is never turned into a model failure or a pass.
 """
 from __future__ import annotations
 
-from collections import Counter
 import hashlib
 import json
 from pathlib import Path
@@ -262,6 +261,10 @@ def classify(result: dict | None) -> dict:
                 return finish('test_failed', 'executed_native_test_failure')
             return finish('infrastructure_blocked', 'compile_or_runtime_failure_needs_diagnosis')
         if result.get('status') == 'passed' and not category:
+            # A shell pipeline can return zero even though pytest reported failures.
+            if re.search(r'(?m)^=*[ \t]*(?:[0-9]+ [a-zA-Z]+, )*[1-9][0-9]* failed'
+                         r'(?:, [0-9]+ [a-zA-Z]+)* in [0-9.]+s(?: \(.*?\))?[ \t]*=*[ \t]*$', text):
+                return finish('infrastructure_blocked', 'test_exit_code_conflicts_with_summary')
             # Custom assertion drivers are tests too; exit 0 is accepted only
             # with an explicit assertion in the executed command, not echo/true.
             assertions = any(re.search(r'\bassert\b|assert_close|assert_allclose', r.get('command', '')) for r in tests)

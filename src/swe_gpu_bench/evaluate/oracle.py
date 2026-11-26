@@ -431,6 +431,8 @@ def execute_oracle_validate(
         )
         if pred_apply.status != "applied":
             status, failure_category = "error", "PRED_PATCH_APPLY_FAILURE"
+        elif not did_commands_succeed(post_patch_setup_records):
+            status, failure_category = "error", "POST_PATCH_SETUP_FAILURE"
         elif is_test_patch_failure_status(test_patch_status):
             status, failure_category = "error", "TEST_PATCH_APPLY_FAILURE"
         else:

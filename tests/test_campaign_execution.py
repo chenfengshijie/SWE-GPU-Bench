@@ -14,10 +14,15 @@ from swe_gpu_bench.shared.artifacts import atomic_jsonl
 
 @pytest.fixture(scope='module')
 def command_environment(tmp_path_factory):
-    # Match the worker's seeded command environment without a network install.
-    # A fresh uv evaluator environment intentionally does not include pip.
+    # Task-created virtual environments can contain distributions without pip.
     path = tmp_path_factory.mktemp('command-environment') / 'venv'
-    venv.EnvBuilder(with_pip=True).create(path)
+    venv.EnvBuilder().create(path)
+    purelib = subprocess.check_output(
+        [str(path / 'bin/python'), '-c', 'import sysconfig; print(sysconfig.get_path("purelib"))'], text=True
+    ).strip()
+    metadata = Path(purelib) / 'example-1.0.dist-info'
+    metadata.mkdir()
+    (metadata / 'METADATA').write_text('Metadata-Version: 2.1\nName: example\nVersion: 1.0\n')
     return path
 
 
@@ -86,7 +91,7 @@ def test_fresh_validation_four_chains(tmp_path, monkeypatch, command_environment
     if task_type == 'performance':
         assert result['performance']['mean_improvement_percent'] == 50
         inventory = json.loads((local / 'base/org__repo__1/artifacts/command-logs/base_perf-environment.json').read_text())
-        assert any(p['name'] == 'pip' for p in inventory['command-env'])
+        assert {'name': 'example', 'version': '1.0'} in inventory['command-env']
     again, reused = worker.generate(run,task,tmp_path / 'does-not-exist',{})
     assert again == candidate and reused['reused_candidate']
 

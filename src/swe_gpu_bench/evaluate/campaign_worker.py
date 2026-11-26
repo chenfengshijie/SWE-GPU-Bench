@@ -6,7 +6,6 @@ from dataclasses import replace
 import json
 import os
 from pathlib import Path
-import shutil
 import signal
 import subprocess
 import sys
@@ -145,7 +144,10 @@ def validate(record: dict, task: dict, candidate: Path, local: Path) -> dict:
             interpreters['command-env'] = Path(os.environ['VIRTUAL_ENV']) / 'bin/python'
         versions = {}
         for name, python in sorted(interpreters.items()):
-            completed = subprocess.run([str(python), '-m', 'pip', 'list', '--format=json'],
+            completed = subprocess.run([str(python), '-I', '-c',
+                                        'import json; from importlib.metadata import distributions; '
+                                        'print(json.dumps([{"name": d.metadata["Name"], "version": d.version} '
+                                        'for d in distributions()]))'],
                                        capture_output=True, text=True, timeout=60)
             if completed.returncode:
                 raise MetricError('environment_inventory_failed')
@@ -314,9 +316,7 @@ def supervise(run: Path, attempt: Path):
             subprocess.run(['uv', 'venv', '--python', repair.get('python', 'python3'), '--system-site-packages', '--seed', str(venv)],
                            stdout=out, stderr=subprocess.STDOUT, check=True, timeout=300)
         env.update(PATH=str(venv / 'bin') + os.pathsep + env['PATH'], VIRTUAL_ENV=str(venv))
-        cmd = [sys.executable, '-m', __name__, '--run', str(run), '--attempt', str(attempt), '--local', str(local), '--execute']
-        # __name__ is __main__ under -m; use the stable module path.
-        cmd[2] = 'swe_gpu_bench.evaluate.campaign_worker'
+        cmd = [sys.executable, '-m', 'swe_gpu_bench.evaluate.campaign_worker', '--run', str(run), '--attempt', str(attempt), '--local', str(local), '--execute']
         with (attempt / 'execute.stdout.log').open('w') as out, (attempt / 'execute.stderr.log').open('w') as err:
             process = subprocess.Popen(cmd, env=env, stdout=out, stderr=err, start_new_session=True)
             while process.poll() is None:

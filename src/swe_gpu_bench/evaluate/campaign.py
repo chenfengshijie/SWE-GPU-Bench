@@ -253,6 +253,10 @@ def import_history(run_dir: Path, imports: list, parent: Path) -> None:
         current = next(r for r in read_jsonl(run_dir / (task['task_type'] + '.jsonl')) if r['instance_id'] == task['instance_id'])
         from swe_gpu_bench.evaluate.use_cases.campaign_audit import classify
         raw = read_json(source)
+        if raw.get('instance_id') != task['instance_id']:
+            raise ValueError('Historical result instance_id differs from the selected task')
+        if raw.get('mode') is not None and raw['mode'] != task['mode']:
+            raise ValueError('Historical result mode differs from the selected task')
         decision = classify(raw)
         history = {'task': task, 'source': str(source), 'source_sha256': item['result_sha256'],
                    'dataset_sha256': item['dataset_sha256'], 'historical': True,
@@ -271,6 +275,15 @@ def result_for(run_dir: Path, task_id: str) -> dict | None:
     return read_json(path) if path.exists() else None
 
 
+def history_requires_run(task: dict, history: dict) -> bool:
+    return bool(history) and (history['data_changed'] or task['task_type'] == 'performance')
+
+
+def reusable_history(run_dir: Path, task: dict) -> bool:
+    path = run_dir / 'history' / (task['task_id'] + '.json')
+    return path.exists() and not history_requires_run(task, read_json(path))
+
+
 def transient_failures(run_dir: Path, task_id: str) -> int:
     results = [read_json(p) for p in (run_dir / 'attempts' / task_id).glob('attempt-*/result.json')]
     return sum(r.get('retryable', False) and r.get('reason') != 'model_calls_deferred' for r in results)
@@ -284,22 +297,25 @@ def summarize(run_dir: Path) -> dict:
     for task in json.loads((run_dir / 'tasks.json').read_text()):
         result = result_for(run_dir, task['task_id'])
         historical = run_dir / 'history' / (task['task_id'] + '.json')
-        result = result or (read_json(historical) if historical.exists() else {})
+        has_current_result = result is not None
+        result = result if has_current_result else (read_json(historical) if historical.exists() else {})
+        needs_run = not has_current_result and history_requires_run(task, result)
         raw = result.get('raw_category', 'missing')
         reason = result.get('reason', 'no_result')
         excluded = any(e['instance_id'] == task['instance_id'] and e['task_type'] == task['task_type']
                        and e['dataset_sha256'] == task['dataset_sha256'] for e in config.get('exclusions', []))
         api_pending = reason in ('rate_limit', 'model_calls_deferred')
-        scored = 'excluded' if excluded else 'unresolved' if api_pending else 'passed' if raw == 'passed' else 'incorrect'
+        scored = 'excluded' if excluded else 'unresolved' if api_pending or needs_run else 'passed' if raw == 'passed' else 'incorrect'
         if not config['scoring'].get('nonpass_as_incorrect', True) and raw not in REAL_OUTCOMES and not excluded:
             scored = 'unresolved'
         rows.append({**task, 'raw_category': raw, 'reason': reason, 'scored_outcome': scored,
                      'assumed_incorrect': scored == 'incorrect' and raw not in REAL_OUTCOMES,
+                     'requires_revalidation': needs_run,
                      'historical': result.get('historical', False), 'data_changed': result.get('data_changed', False),
                      'tests_executed': result.get('tests_executed', False),
                      'current_input_executed': bool(result.get('tests_executed')) and not result.get('historical', False),
                      'attempt': state['tasks'].get(task['task_id'], {}).get('attempt'),
-                     'result': str(run_dir / 'results' / (task['task_id'] + '.json')) if result_for(run_dir, task['task_id']) else None})
+                     'result': str(run_dir / 'results' / (task['task_id'] + '.json')) if has_current_result else None})
     groups = defaultdict(list)
     for row in rows:
         groups[(row['task_type'], row['mode'], row['model'])].append(row)
@@ -308,11 +324,12 @@ def summarize(run_dir: Path) -> dict:
         eligible = [r for r in items if r['scored_outcome'] != 'excluded']
         denominator = sum(r['scored_outcome'] in ('passed', 'incorrect') for r in eligible)
         passed = sum(r['scored_outcome'] == 'passed' for r in eligible)
-        evaluated = sum(r['raw_category'] in REAL_OUTCOMES for r in eligible)
+        evaluated_rows = [r for r in eligible if not r['requires_revalidation'] and r['raw_category'] in REAL_OUTCOMES]
+        evaluated = len(evaluated_rows)
         totals.append(dict(zip(('task_type', 'mode', 'model'), group)) | {
             'positions': len(items), 'eligible': len(eligible), 'scoring_denominator': denominator,
             'passed': passed, 'scored_accuracy': passed / denominator if denominator else None,
-            'evaluated': evaluated, 'evaluated_accuracy': sum(r['raw_category'] == 'passed' for r in eligible) / evaluated if evaluated else None,
+            'evaluated': evaluated, 'evaluated_accuracy': sum(r['raw_category'] == 'passed' for r in evaluated_rows) / evaluated if evaluated else None,
             'evaluated_coverage': evaluated / len(eligible) if eligible else None,
             'executed_test_coverage': sum(r['tests_executed'] for r in eligible) / len(eligible) if eligible else None,
             'current_input_coverage': sum(r['current_input_executed'] for r in eligible) / len(eligible) if eligible else None,
@@ -383,7 +400,7 @@ def tick(run_dir: Path, platform) -> dict:
             continue
         if any(e['instance_id'] == task['instance_id'] and e['task_type'] == task['task_type'] for e in config.get('exclusions', [])):
             continue
-        if (run_dir / 'history' / (key + '.json')).exists() and not entry:
+        if not entry and reusable_history(run_dir, task):
             continue
         previous = result_for(run_dir, key)
         number = entry['attempt'] + 1 if entry else 1
@@ -425,7 +442,7 @@ def control(run_dir: Path, once=False):
             unfinished = False
             for task in tasks:
                 key = task['task_id']
-                if (run_dir / 'history' / (key + '.json')).exists():
+                if reusable_history(run_dir, task):
                     continue
                 if any(e['instance_id'] == task['instance_id'] and e['task_type'] == task['task_type'] for e in config.get('exclusions', [])):
                     continue

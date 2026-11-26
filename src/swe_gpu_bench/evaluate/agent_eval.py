@@ -208,6 +208,8 @@ def grade_patched_repo(
     test_patch = record.get("test_patch") or ""
     test_patch_status = apply_test_patch(test_patch, case_paths.repo_dir) if test_patch.strip() else "no_test_patch"
     emit(f"test_patch status: {test_patch_status}")
+    if not did_commands_succeed(post_patch_setup_records):
+        return post_patch_setup_records, test_patch_status, []
     if is_test_patch_failure_status(test_patch_status):
         return post_patch_setup_records, test_patch_status, []
 
@@ -227,10 +229,11 @@ def _determine_status(
     test_records: List[Dict[str, Any]],
     test_patch_status: str,
 ) -> tuple[str, Optional[str]]:
-    """Setup failures only matter when no test ran; passing tests still count as passed."""
     if is_test_patch_failure_status(test_patch_status):
         return "error", "TEST_PATCH_APPLY_FAILURE"
-    if not test_records and not (did_commands_succeed(setup_records) and did_commands_succeed(post_patch_setup_records)):
+    if not did_commands_succeed(post_patch_setup_records):
+        return "error", "POST_PATCH_SETUP_FAILURE"
+    if not did_commands_succeed(setup_records):
         return "error", "SETUP_FAILURE"
     return test_outcome(test_records)
 

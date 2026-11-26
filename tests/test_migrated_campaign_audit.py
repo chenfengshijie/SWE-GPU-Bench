@@ -22,6 +22,8 @@ def result(tmp_path, text='2 passed', status='passed', exit_code=0):
 @pytest.mark.parametrize('text,status,code,expected', [
     ('2 passed', 'passed', 0, 'passed'), ('1 failed, 1 passed', 'failed', 1, 'test_failed'),
     ('1 failed, 2 skipped', 'failed', 1, 'test_failed'),
+    ('1 failed, 2 passed in 0.05s', 'passed', 0, 'infrastructure_blocked'),
+    ('==== 2 passed, 1 failed in 0.05s ====', 'passed', 0, 'infrastructure_blocked'),
     ('10 skipped', 'passed', 0, 'infrastructure_blocked'),
     ('collected 0 items', 'passed', 0, 'infrastructure_blocked'),
     ('No tests were found', 'passed', 0, 'infrastructure_blocked'),

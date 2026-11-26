@@ -96,13 +96,13 @@ def run_logged_shell_commands(
 
 
 def did_commands_succeed(records: Sequence[Mapping[str, Any]]) -> bool:
-    """A phase succeeds when it is empty or its last command exited 0."""
-    return not records or records[-1].get("exit_code") == 0
+    """Optional phases may be empty. Every recorded command must succeed."""
+    return all(record.get("exit_code") == 0 for record in records)
 
 
 def all_commands_succeeded(records: Sequence[Mapping[str, Any]]) -> bool:
     """Every command ran and exited 0; an empty phase does not count as success."""
-    return bool(records) and all(record.get("exit_code") == 0 for record in records)
+    return bool(records) and did_commands_succeed(records)
 
 
 def setup_builds_repo(commands: Sequence[str]) -> bool:

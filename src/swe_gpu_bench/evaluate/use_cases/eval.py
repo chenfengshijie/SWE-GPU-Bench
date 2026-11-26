@@ -469,19 +469,11 @@ def _determine_status(
     test_patch_status: str,
     strict_commands: bool = False,
 ) -> tuple[str, Optional[str]]:
-    """Return (status, failure_category).
-
-    Setup failures are non-blocking: if tests run and pass the result is still
-    "passed".  Setup failure only causes "error" when there are no test results
-    to fall back on.
-    """
-    setup_failed = not did_commands_succeed(setup_records)
-    post_patch_setup_failed = not did_commands_succeed(post_patch_setup_records)
+    if not did_commands_succeed(setup_records):
+        return "error", "SETUP_FAILURE"
+    if not did_commands_succeed(post_patch_setup_records):
+        return "error", "POST_PATCH_SETUP_FAILURE"
     if strict_commands:
-        if any(r.get("exit_code") != 0 for r in setup_records):
-            return "error", "SETUP_FAILURE"
-        if any(r.get("exit_code") != 0 for r in post_patch_setup_records):
-            return "error", "POST_PATCH_SETUP_FAILURE"
         from swe_gpu_bench.shared.artifacts import skipped_test_output
         for record in test_records:
             text = "\n".join(Path(record[k]).read_text(errors="replace")
@@ -492,8 +484,7 @@ def _determine_status(
     if is_test_patch_failure_status(test_patch_status):
         return "error", "TEST_PATCH_APPLY_FAILURE"
     if not test_records:
-        failure = "SETUP_FAILURE" if setup_failed or post_patch_setup_failed else "TEST_EXECUTION_FAILURE"
-        return "error", failure
+        return "error", "TEST_EXECUTION_FAILURE"
     all_passed = all(r["exit_code"] == 0 for r in test_records)
     if all_passed:
         return "passed", None
@@ -676,9 +667,7 @@ def execute_eval(
     emit("Running setup_commands to prepare environment")
     setup_cmds: List[str] = record.get("setup_commands", [])
     setup_records = run_commands(setup_cmds, "setup", case_paths)
-    setup_ok = (all(r.get("exit_code") == 0 for r in setup_records)
-                if strict_commands else did_commands_succeed(setup_records))
-    if not setup_ok:
+    if not did_commands_succeed(setup_records):
         emit("setup_commands did not finish successfully; skipping agent invocation")
         finished_at = datetime.now(timezone.utc)
         result = build_eval_result(
@@ -757,17 +746,16 @@ def execute_eval(
         emit("Re-running setup_commands to refresh repo install/build state after agent changes")
         post_patch_setup_records = run_commands(setup_cmds, "post_patch_setup", case_paths)
         if not did_commands_succeed(post_patch_setup_records):
-            emit("Post-patch setup did not finish successfully — continuing to test_patch/test_commands")
+            emit("Post-patch setup failed; skipping test commands")
     else:
         emit("Skipping post-patch setup rerun; no repo install/build step detected")
 
     # Stage 6: Run test_commands
     emit("Running test_commands")
     test_cmds: List[str] = record.get("test_commands", [])
-    can_test = (not strict_commands or (
-        agent_result.exit_code == 0 and not agent_result.error_message
-        and not is_test_patch_failure_status(test_patch_status)
-        and all(r.get("exit_code") == 0 for r in post_patch_setup_records)))
+    can_test = (did_commands_succeed(post_patch_setup_records)
+                and not is_test_patch_failure_status(test_patch_status)
+                and (not strict_commands or (agent_result.exit_code == 0 and not agent_result.error_message)))
     test_records = run_commands(test_cmds, "test", case_paths) if can_test else []
 
     finished_at = datetime.now(timezone.utc)

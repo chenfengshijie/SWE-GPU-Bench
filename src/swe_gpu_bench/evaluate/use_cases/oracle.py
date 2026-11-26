@@ -23,7 +23,6 @@ from swe_gpu_bench.evaluate.use_cases.eval import (
     capture_agent_diff,
     untracked_paths,
     build_evaluation_stats,
-    did_commands_succeed,
     prepare_eval_case_dir,
     run_commands,
     should_rerun_setup_after_agent,
